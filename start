@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+# kill $(<watchman.pid)
+exit_script() {
+    echo "traped! cleaning"
+    rm ${DIR}/${PIDFILE}
+    watchman trigger-del . app
+    watchman watch-del .
+    kill -- -$$ # Sends SIGTERM to child/sub processes
+}
+trap exit_script SIGINT
+DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+PIDFILE="watchman.pid"
+sh -c 'echo $PPID' > ${DIR}/${PIDFILE}
+watchman watch-project .
+watchman --json-command < ./trigger.json
+tail -f /usr/local/var/run/watchman/root-state/log

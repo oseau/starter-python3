@@ -1,0 +1,25 @@
+[
+  "trigger",
+  "/app",
+  {
+    "name": "app",
+    "expression": [
+      "allof",
+      ["not", ["anyof", ["empty"], ["dirname", ".git"]]],
+      [
+        "anyof",
+        [
+          "anyof",
+          ["suffix", "js"],
+          ["suffix", "json"],
+          ["suffix", "html"],
+          ["suffix", "py"],
+          ["suffix", "sh"]
+        ],
+        ["match", "Makefile"]
+      ]
+    ],
+    "empty_on_fresh_instance": true,
+    "command": ["/app/on_change"]
+  }
+]

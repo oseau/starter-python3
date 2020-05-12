@@ -1,5 +1,5 @@
 # Start from whatever image you are using
-FROM python:3.7.4-alpine3.9
+FROM python:3-alpine
 
 # Install the packages required for watchman to work properly:
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories

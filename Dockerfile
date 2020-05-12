@@ -5,7 +5,8 @@ FROM python:3-alpine
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
 RUN apk update \
   && apk upgrade \
-  && apk add --no-cache libcrypto1.1 libgcc libstdc++
+  && apk add --no-cache libcrypto1.1 libgcc libstdc++ \
+  && pip install -i https://mirrors.cloud.tencent.com/pypi/simple --upgrade pip
 
 # Copy the watchman executable binary directly from our image:
 COPY --from=icalialabs/watchman:alpine3.9 /usr/local/bin/watchman* /usr/local/bin/
